@@ -1,4 +1,4 @@
-using Myket;
+using Myket.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,8 +8,8 @@ builder.Services.AddScoped<HttpProductsService>();
 builder.Services.AddScoped<IProductsService>(provider =>
     new CacheProductsService(provider.GetRequiredService<HttpProductsService>())); ;
 
-builder.Services.AddScoped<IProductDetail, TorobProductDetail>();
-builder.Services.AddScoped<IProductDetail, DigikalaProductDetails>();
+builder.Services.AddScoped<IProductProviderDetails, TorobProductProviderDetails>();
+builder.Services.AddScoped<IProductProviderDetails, DigikalaProductProviderDetails>();
 
 builder.Services.AddControllers();
 builder.Services.AddHttpClient();

@@ -1,25 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Myket.Services;
 
-namespace Myket.Controllers
+namespace Myket.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class ProductsController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ProductsController : ControllerBase
+    private readonly IProductsService _productsService;
+
+
+    public ProductsController(IProductsService productsService)
     {
-        private readonly IProductsService _productsService;
+        _productsService = productsService;
+    }
 
 
-        public ProductsController(IProductsService productsService)
-        {
-            _productsService = productsService;
-        }
-
-
-        [HttpGet]
-        public async Task<ActionResult> GetProduct(string productName)
-        {
-            var result = await _productsService.GetProductAsync(productName);
-            return Ok(result);
-        }
+    [HttpGet]
+    public async Task<ActionResult> GetProduct(string productName)
+    {
+        var result = await _productsService.GetProductAsync(productName);
+        return Ok(result);
     }
 }
