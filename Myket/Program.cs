@@ -1,12 +1,18 @@
+using Microsoft.Extensions.Caching.Memory;
 using Myket.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddMemoryCache();
+
 builder.Services.AddScoped<HttpProductsService>();
 builder.Services.AddScoped<IProductsService>(provider =>
-    new CacheProductsService(provider.GetRequiredService<HttpProductsService>())); ;
+    new CacheProductsService(
+        provider.GetRequiredService<HttpProductsService>(),
+        provider.GetRequiredService<IMemoryCache>()
+        ));
 
 builder.Services.AddScoped<IProductProviderDetails, TorobProductProviderDetails>();
 builder.Services.AddScoped<IProductProviderDetails, DigikalaProductProviderDetails>();
