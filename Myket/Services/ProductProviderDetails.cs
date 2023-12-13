@@ -64,9 +64,9 @@ public class DigikalaProductProviderDetails : IProductProviderDetails
         var result = JsonSerializer.Deserialize<DigikalaProductResult>(contentString);
         return result.Results.Products.Select(r => new ProductResult
         {
-            ImageUrl = "",
+            ImageUrl = r.Images.Main?.Url[0],
             Name = r.Name,
-            Price = 0m,
+            Price = r.DefaultVariant.Price.SellingPrice,
             Provider = "Digikala"
         }).ToList();
 
