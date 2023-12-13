@@ -1,0 +1,6 @@
+@Myket_HostAddress = http://localhost:5264
+
+GET {{Myket_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
